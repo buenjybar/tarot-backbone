@@ -8,13 +8,15 @@ require.config({
         jquery: 'js/libs/jquery/jquery-1.11.0.min',
         underscore: 'js/libs/underscore/underscore-min',
         backbone: 'js/libs/backbone/backbone',
+        backbonedebug: 'js/libs/backbone/backbone.debug',
         bootstrap: 'js/libs/bootstrap/bootstrap.min',
         text: 'js/libs/text',
 
         //app
         app: 'js/app',
-        router: 'js/router'
-
+        router: 'js/router',
+        enums: 'js/enums',
+        util : 'js/util'
     },
     shim: {
         underscore: {
@@ -23,6 +25,9 @@ require.config({
         backbone: {
             deps: ["underscore", "jquery"],
             exports: 'Backbone'
+        },
+        backbonedebug : {
+            deps: ["backbone"]
         }
     },
     waitSeconds: 0

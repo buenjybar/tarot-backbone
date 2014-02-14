@@ -40,13 +40,13 @@ define([
 //            var gameView = new GameView();
 //            gameView.render();
         },
-        game1: function (id, play) {
+        game1: function () {
             var game1View = new Game1View();
             game1View.render();
         },
-        game2: function (id, play) {
-            var gameView = new Game2View();
-            gameView.render();
+        game2: function () {
+            var game2View = new Game2View();
+            game2View.render();
         },
         score: function (id, play) {
 
@@ -87,7 +87,7 @@ define([
 //            console.log("No route: " + actions);
 //        });
 
-        Backbone.history.start({pushState: true});
+        Backbone.history.start();
     };
 
     var navigate = function () {

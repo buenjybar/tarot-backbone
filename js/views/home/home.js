@@ -19,9 +19,9 @@ define([
             this.$el.append(compiledTemplate);
         },
         events: {
-            'click .btn': 'creategame'
+            'click #startgame': 'goToCreateGame'
         },
-        creategame: function (event) {
+        goToCreateGame: function (event) {
             Backbone.history.navigate('creategame', {trigger: true});
         }
     });

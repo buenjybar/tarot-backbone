@@ -6,24 +6,30 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/game/game1.html'
-], function ($, _, Backbone, game1Template) {
+    'text!templates/game/game1.html',
+    'enums',
+    'util'
+], function ($, _, Backbone, game1Template, ENUMS, Util) {
 
-    var HomeView = Backbone.View.extend({
+    var Game1View = Backbone.View.extend({
         el: $("#container"),
         render: function () {
             var data = {};
-            var compiledTemplate = _.template(game1Template, data);
+            var compiledTemplate = _.template(game1Template, data);            
             this.$el.empty();
             this.$el.append(compiledTemplate);
+            
+            $('#taker').append();
+            $('#contract').append(Util.getEnumsToHTML(ENUMS.BIDS));
+            $('#king').append(Util.getEnumsToHTML(ENUMS.KINGS));
         },
         events: {
-            "submit #game": 'onSubmit'
+            'click #game1 button:submit': 'goToGame2'
         },
-        onSubmit: function () {
+        goToGame2: function () {
             Backbone.history.navigate('game2', {trigger: true});
         }
     });
 
-    return HomeView;
+    return Game1View;
 });

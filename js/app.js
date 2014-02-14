@@ -6,12 +6,25 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'router'
+    'router',
+    'backbonedebug'
 ], function ($, _, Backbone, Router) {
     var initialize = function () {
-
+        Backbone.debug.on();
         Router.initialize();
-
+        
+        Backbone.View.prototype.close = function(){
+            this.remove();
+            this.unbind();
+            if (this.onClose){
+                this.onClose();
+            }
+        };
+        
+        //Backbone.debug.routes();
+        //Backbone.debug.views();
+        //Backbone.debug.models();
+        //Backbone.debug.collections();
     };
 
     return {

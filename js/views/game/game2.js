@@ -6,24 +6,50 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/game/game2.html'
-], function ($, _, Backbone, game2Template) {
+    'text!templates/game/game2.html',
+    'enums',
+    'util'
+], function ($, _, Backbone, game2Template, ENUMS, Util) {
 
-    var HomeView = Backbone.View.extend({
+    var Game2View = Backbone.View.extend({
         el: $("#container"),
         render: function () {
             var data = {};
             var compiledTemplate = _.template(game2Template, data);
             this.$el.empty();
             this.$el.append(compiledTemplate);
+            
+            $("#called").append();
+            $("#bouts").append(Util.getEnumsToHTML(ENUMS.BOUTS));
         },
         events: {
-            "submit ": 'onsubmit'
+            'click #game2 button:submit': 'goToScore',
+            'click #additionaloptions' : 'additionalOptions',
+            'change input[name="other"]' : 'computeOtherScore',
+            'change input[name="taker"]': 'computeTakerScore'
         },
-        onsubmit : function(){
-
+        goToScore : function(){
+            Backbone.history.navigate('scores', {trigger: true});
+        },
+        additionalOptions : function(){
+            
+        },
+        computeOtherScore : function(e){
+            this.computeScore("input[name='other']","input[name='taker']");
+        },
+        computeTakerScore : function(e){
+            this.computeScore("input[name='taker']","input[name='other']");
+        },
+        computeScore : function(source, target){
+            var value = +$(source).val();
+            if(value > 91) {
+                $(source).val(91); 
+                $(target).val(0);
+                return;
+            }
+            $(target).val(91 - value);
         }
     });
 
-    return HomeView;
+    return Game2View;
 });

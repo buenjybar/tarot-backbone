@@ -18,9 +18,10 @@ define([
             this.$el.append(compiledTemplate);
         },
         events: {
-            "click #playerOptions label": 'addplayers'
+            'click #playerOptions label': 'addPlayers',
+            'click #playagame a' : 'goToGame'
         },
-        addplayers: function (e) {
+        addPlayers: function (e) {
             var selected = $(e.currentTarget);
             var number = +selected.text().match(/\d+/g)[0];//extract number of players
 
@@ -36,11 +37,10 @@ define([
             _players.empty();
             _players.append(html);
 
-            var _startGame = $('#startgame a');
-            _startGame.removeClass('hidden');
-            _startGame.on('click', function () {
-                Backbone.history.navigate('game1', {trigger: true});
-            })
+            $('#playagame a').removeClass('hidden');
+        },
+        goToGame : function(e){
+            Backbone.history.navigate('game1', {trigger: true});
         }
     });
 

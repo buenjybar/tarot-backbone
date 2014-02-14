@@ -1,0 +1,15 @@
+/**
+ * Created by ben on 2/12/14.
+ */
+
+define([
+    'underscore',
+    'backbone'
+], function ($, _, Backbone) {
+
+    var GameCollection = Backbone.Collection.extend({
+        model: gameinfo
+    });
+
+    return GameCollection;
+});

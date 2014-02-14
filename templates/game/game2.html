@@ -1,22 +1,50 @@
-<form class="form-horizontal" role="form" id="game">
+<form class="form-horizontal" role="form" id="game2">
     <div class="form-group">
-        <label for="inputTaker" class="col-xs-2 control-label">Taker</label>
+        <label for="inputCalled" class="col-xs-2 control-label">Called</label>
 
         <div class="col-xs-10">
-            <select class="form-control" id="taker"></select>
+            <select class="form-control" id="called"></select>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="inputKing" class="col-xs-2 control-label">King</label>
+        <label for="inputBout" class="col-xs-2 control-label">Number of Bouts</label>
 
         <div class="col-xs-10">
-            <select class="form-control" id="king"></select>
+            <select class="form-control" id="bouts"></select>
         </div>
     </div>
+    
+    <div class="form-group">
+        <label for="inputPoints" class="col-xs-2 control-label">Number of Points</label>
+        <div  class="col-xs-10">
+            <div class="col-xs-4">
+                <input type="text" class="form-control" placeholder="taker team" name="taker">
+            </div>
+            <div class="col-xs-2">
+                <label class="col-xs-2 control-label">Against</label>
+            </div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control" placeholder="other team" name="other">
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-xs-10">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="additionaloptions">Options <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a>Petit au bout</a></li>
+                <li><a>misere de point ::player :: simple ou double</a></li>
+                <li><a>poignee ::player :: simple ou double</a></li>
+                <li><a>chelem ::</a></li>
+            </ul>
+        </div>
+    </div>
+    
     <div class="form-group">
         <div class="col-xs-offset-11 col-xs-1">
-            <button type="submit" class="btn btn-primary">Next</button>
+            <button type="submit" class="btn btn-primary">Validate</button>
         </div>
     </div>
 </form>
