@@ -22,7 +22,7 @@ define([
             'click #startgame': 'goToCreateGame'
         },
         goToCreateGame: function (event) {
-            Backbone.history.navigate('creategame', {trigger: true});
+            Backbone.history.navigate('#/games', {trigger: true});
         }
     });
 
