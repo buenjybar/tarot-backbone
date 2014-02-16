@@ -11,6 +11,7 @@ require.config({
         backbonedebug: 'js/libs/backbone/backbone.debug',
         bootstrap: 'js/libs/bootstrap/bootstrap.min',
         text: 'js/libs/text',
+        q: 'js/libs/q/q.min',
 
         //app
         app: 'js/app',
