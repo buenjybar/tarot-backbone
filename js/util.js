@@ -2,16 +2,56 @@
  * Created by ben on 2/13/14.
  */
 
-define([], function () {
+define([
+    'underscore'
+], function (_) {
+    var currentCollection = null;
     //Static class
     function Util() {
     };
-
-    //static method get New ID
-    Util.getNewId = function () {
-        return Math.random().toString(36).substring(12);
+    
+    Util.setCurrentCollection = function(col){
+        currentCollection = col;
     };
 
+    Util.getCurrentCollection = function(col){
+        return currentCollection;
+    };
+    
+    //static method get New ID
+    Util.getNewId = function (prefix) {
+        return _.uniqueId(prefix);
+        //return Math.random().toString(36).substring(12);
+    };
+
+    Util.getRandomAvatarImg = function(){
+        
+    };
+    
+    Util.isOnlyUniqueValues = function(array){
+        if(!array || array.length < 1)
+            return false;
+    
+        var length = array.length;
+        
+        return (length === _.uniq(array).length);
+    }
+    
+    Util.displayErrorMessage = function(msg, force){
+        var alert = $('.alert-danger');
+        if(alert.length < 1){
+            $("#container :first").prepend("<div class='alert alert-danger'></div>");
+            alert = $('.alert-danger');
+        }
+        
+        var unlimited = force !== undefined ? force : false;
+        if(unlimited){
+            alert.html(msg).show();
+        } else {
+            alert.html(msg).show().delay(5000).fadeOut();   
+        }
+    }
+    
     //static method used to load an image from local storage
     Util.loadImage = function (path_to_img, callback) {
         var img = new Image();
