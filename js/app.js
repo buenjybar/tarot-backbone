@@ -6,13 +6,24 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'util',
     'router',
+    'js/collections/gamecollection',
+    'q',
     'backbonedebug'
-], function ($, _, Backbone, Router) {
+], function ($, _, Backbone, Util, Router, GameCollection, Q) {
+    this.currentGameCollection = null;
+    
     var initialize = function () {
         Backbone.debug.on();
         Router.initialize();
         
+        //this.currentGameCollection = new GameCollection();
+        Util.setCurrentCollection( new GameCollection());
+        
+        //var promise = loadAvatars().then()
+        
+        //patch close template
         Backbone.View.prototype.close = function(){
             this.remove();
             this.unbind();
@@ -20,13 +31,12 @@ define([
                 this.onClose();
             }
         };
-        
-        //Backbone.debug.routes();
-        //Backbone.debug.views();
-        //Backbone.debug.models();
-        //Backbone.debug.collections();
     };
-
+    
+    function loadAvatars(){
+     //var promise = Q.fcall().then();
+    }
+    
     return {
         initialize: initialize
     };
