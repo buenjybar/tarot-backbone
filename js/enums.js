@@ -42,7 +42,7 @@ define(function () {
         'NONE' : {name: 'None' , img: ''},
         'DIAMONDS': {name : 'Diamonds', img: ''},
         'SPADES': {name: 'Spades', img: ''},
-        'CLUBS': {name: 'CLubs', img: ''},
+        'CLUBS': {name: 'Clubs', img: ''},
         'HEARTS': {name: 'Hearts', img: ''}
     };
 
