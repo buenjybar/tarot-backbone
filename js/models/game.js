@@ -11,18 +11,28 @@ define([
 
     var Game = Backbone.Model.extend({
         defaults:{
-            name : '',
+            id: Util.getNewGameId(),
+            name : 'game_' + Util.getNewId(),
             date : new Date(),
             ticks: [],
             players: [],
             playerNumber: 0
-        },                             
-        addPlayers: function(players){
-            if(!players) return;
+        },
+        initialize : function(options){
+            if(options && options.name) this.set('name', options.name);        
+            if(options && options.players) this.createPlayers(options.players);   
+
+        },
+        getPlayers: function(){
+          return this.get('players');  
+        },
+        createPlayers: function(array){
+            if(!array) return;
             
-            this.set('playerNumber', players.length);
-            players.forEach(function(player){
-              this.get('players').push(new Player(player));   
+            this.set('playerNumber', array.length);
+            this.set('players', []);
+            array.forEach(function(el){
+              this.get('players').push(new Player(el));   
             }.bind(this));
         }
     });
