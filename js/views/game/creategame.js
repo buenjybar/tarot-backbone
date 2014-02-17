@@ -34,7 +34,7 @@ define([
 
             var html = '';
             for (var i = 1; i <= number; ++i) {
-                html += '<div class="input-group">' +
+                html += '<div class="col-xs-12">' +
                     '<span>Player ' + i + ': </span>' +
                     '<input type="text" class="form-control" placeholder="name">' +
                     '</div>';
