@@ -10,13 +10,16 @@ define([
     'router',
     'js/collections/gamecollection',
     'q',
-    'backbonedebug'
+    'backbonedebug',
+    'bootstrap'
 ], function ($, _, Backbone, Util, Router, GameCollection, Q) {
-    this.currentGameCollection = null;
-    
     var initialize = function () {
         Backbone.debug.on();
-        Router.initialize();
+        
+        new Router();
+        Backbone.history.start();     
+        this.gameColl = new GameCollection();
+        window.app = this;
         
         //this.currentGameCollection = new GameCollection();
         Util.setCurrentCollection( new GameCollection());
@@ -24,6 +27,7 @@ define([
         //var promise = loadAvatars().then()
         
         //patch close template
+        //this avoid ghost view
         Backbone.View.prototype.close = function(){
             this.remove();
             this.unbind();
@@ -36,8 +40,13 @@ define([
     function loadAvatars(){
      //var promise = Q.fcall().then();
     }
+
+    function getGameCollection() {
+        return this.gameColl;
+    }
     
     return {
-        initialize: initialize
+        initialize: initialize,
+        getGameCollection: getGameCollection
     };
 });
