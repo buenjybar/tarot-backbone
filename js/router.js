@@ -10,17 +10,15 @@ define([
     'js/views/game/creategame',
     'js/views/game/game1',
     'js/views/game/game2',
-], function ($, _, Backbone, HomeView, CreateGameView, Game1View, Game2View) {
-
+    'js/views/scores/scores'
+], function ($, _, Backbone, HomeView, CreateGameView, Game1View, Game2View, ScoresView) {
+    
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
             'home': 'home',
-            'creategame': 'creategame',
-            'game1': 'game1',
-            'game2': 'game2',
-            'game/:id(/:play)': 'game',
-            'score/:id(/:play)': 'score',
+            'games/(:id(/:play))': 'games',
+            'scores/(:id(/:play))': 'scores',
             'save': 'save',
             'load': 'load',
             'contacts': 'contacts',
@@ -29,27 +27,35 @@ define([
             '*actions': 'defaultAction'
         },
         home: function () {
-            var homeView = new HomeView();
-            homeView.render();
+            new HomeView().render();
         },
         creategame: function () {
-            var createGame = new CreateGameView();
-            createGame.render();
+            new CreateGameView().render();
         },
-        game: function (id, play) {
-//            var gameView = new GameView();
-//            gameView.render();
+        games: function (id, play) {
+            //console.log(">>DEBUG: route: %s, %s", id, play);
+            if(id === null || id.match(/newgame/)){
+                //go to creatgame and ask for player names
+                this.creategame();
+            }else if( play === null) {
+                //go to game1 view then game2 view
+                this.game1(id);
+            } else if(play.match(/suite/)){
+                //go to game2
+                this.game2(id);
+            }else{
+                //go to gamedetail view
+            }
         },
-        game1: function () {
-            var game1View = new Game1View();
-            game1View.render();
+        game1: function (id) {
+            
+            new Game1View({gameid: id}).render();
         },
-        game2: function () {
-            var game2View = new Game2View();
-            game2View.render();
+        game2: function (id) {
+            new Game2View({gameid: id}).render();
         },
-        score: function (id, play) {
-
+        scores: function (id, play) {
+            new ScoresView({gameid: id}).render();
         },
         save: function () {
 
@@ -64,38 +70,6 @@ define([
             console.log("No route: " + actions);
         }
     });
-
-    var initialize = function () {
-        this._intance = new AppRouter;
-
-//        app_router.on("home", function () {
-//            var homeView = new HomeView();
-//            homeView.render();
-//        });
-//
-//        app_router.on("creategame", function () {
-//            var createGame = new CreateGameView();
-//            createGame.render();
-//        })
-//
-//        app_router.on("game", function (id, play) {
-//            var gameView = new GameView();
-//            gameView.render();
-//        });
-//
-//        app_router.on("defaultAction", function (actions) {
-//            console.log("No route: " + actions);
-//        });
-
-        Backbone.history.start();
-    };
-
-    var navigate = function () {
-        return this._intance.navigate
-    }
-
-    return {
-        initialize: initialize,
-        navigate: navigate
-    };
+    
+    return AppRouter
 });
