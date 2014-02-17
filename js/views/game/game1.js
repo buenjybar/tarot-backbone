@@ -21,6 +21,7 @@ define([
         initialize: function (options) {
             if (options && options.gameid) {
                 this.gameid = options.gameid;
+                if (window.app === undefined) return;
                 var gameColl = window.app.getGameCollection();
                 if (gameColl === undefined) return;
                 var game = gameColl.get(this.gameid);
