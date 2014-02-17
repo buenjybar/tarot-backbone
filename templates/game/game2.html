@@ -14,10 +14,11 @@
             <select class="form-control" id="bouts"></select>
         </div>
     </div>
-    
+
     <div class="form-group">
         <label for="inputPoints" class="col-xs-2 control-label">Number of Points</label>
-        <div  class="col-xs-10">
+
+        <div class="col-xs-10">
             <div class="col-xs-4">
                 <input type="text" class="form-control" placeholder="taker team" name="taker">
             </div>
@@ -29,19 +30,21 @@
             </div>
         </div>
     </div>
-        
+
     <div class="col-xs-10">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="additionaloptions">Options <span class="caret"></span></button>
+        <div class="btn-group" id="additionaloptions">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Options <span
+                    class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-                <li><a>Petit au bout</a></li>
-                <li><a>misere de point ::player :: simple ou double</a></li>
-                <li><a>poignee ::player :: simple ou double</a></li>
-                <li><a>chelem ::</a></li>
+                <li role="presentation" class="dropdown-header">click to add options</li>
+                <li><a role="menu-item">Petit au bout</a></li>
+                <li><a role="menu-item">Misere de point</a></li>
+                <li><a role="menu-item">Poignee</a></li>
+                <li><a role="menu-item">Chelem</a></li>
             </ul>
         </div>
     </div>
-    
+
     <div class="form-group" id="submitgame">
         <div class="col-xs-offset-11 col-xs-1">
             <button type="button" class="btn btn-primary">Validate</button>

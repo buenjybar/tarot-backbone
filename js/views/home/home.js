@@ -20,7 +20,7 @@ define([
         },
         events: {
             'click #startgame': 'goToNext',
-            'click [data-toggle=offcanvas]' :'toggleClass'
+            'click [data-toggle=offcanvas]': 'toggleClass'
         },
         goToNext: function (event) {
             Backbone.history.navigate('#/games/newgame', {trigger: true});

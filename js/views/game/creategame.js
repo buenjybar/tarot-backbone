@@ -20,13 +20,13 @@ define([
             var compiledTemplate = _.template(createGameTemplate, data);
             this.$el.empty();
             this.$el.append(compiledTemplate);
-            
+
             this.$players = $('#players');
             $('#playerOptions :first').click();//simulate 3 players click
         },
         events: {
             'click #playerOptions label': 'addPlayers',
-            'click #playagame a' : 'checkValidForm'
+            'click #playagame a': 'checkValidForm'
         },
         addPlayers: function (e) {
             var selected = $(e.currentTarget);
@@ -39,48 +39,48 @@ define([
                     '<input type="text" class="form-control" placeholder="name">' +
                     '</div>';
             }
-            
+
             this.$players.empty();
             this.$players.append(html);
 
             $('#playagame a').removeClass('hidden');
         },
-        checkValidForm: function(){
+        checkValidForm: function () {
             var valid = true;
             var players = [];
             var names = [];
-            
+
             var elements = this.$players.find('input');
-            elements.map(function(i){
+            elements.map(function (i) {
                 names.push(elements[i].value);
-                
+
             });
             valid = names.length > 2 && names.length < 7 && Util.isOnlyUniqueValues(names);
-                        
+
             //valid = true;//TODO remove <--
-            if(valid) {
-                names.forEach(function(name){
+            if (valid) {
+                names.forEach(function (name) {
                     players.push({
                         name: name,
                         img: Util.getRandomAvatarImg()
                     });
                 });
-                
+
                 //create a new game
                 //var game = new Game();
-                
+
                 //add game to game collection
                 var gameColl = window.app.getGameCollection();
                 var game = gameColl.create({ players: players });
-                
+
                 //this.goToNext(game.get('id'));
                 this.goToNext(game.cid);
             } else {
                 Util.displayErrorMessage("<strong>Warning</strong> please, make sure player names are uniques");
             }
         },
-        goToNext: function(id){
-            Backbone.history.navigate('#/games/'+ id , {trigger: true});
+        goToNext: function (id) {
+            Backbone.history.navigate('#/games/' + id, {trigger: true});
         }
     });
 

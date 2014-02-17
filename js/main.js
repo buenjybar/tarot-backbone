@@ -17,19 +17,12 @@ require.config({
         app: 'js/app',
         router: 'js/router',
         enums: 'js/enums',
-        util : 'js/util'
+        util: 'js/util'
     },
     shim: {
-        underscore: {
-            exports: '_'
-        },
-        backbone: {
-            deps: ["underscore", "jquery"],
-            exports: 'Backbone'
-        },
-        backbonedebug : {
-            deps: ["backbone"]
-        }
+        underscore: {exports: '_'},
+        backbone: { deps: ["underscore", "jquery"], exports: 'Backbone'},
+        backbonedebug: {deps: ["backbone"]}
     },
     waitSeconds: 0
 });

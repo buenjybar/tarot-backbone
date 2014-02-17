@@ -11,22 +11,12 @@ define([
     var GameCollection = Backbone.Collection.extend({
         model: Game,
         currentGame: null,
-        url:'/games/',
-        initialize: function(models, options){
-            
-        },
-        getCurrentGame: function(){
-            return this.get('currentGame');
-        },
-        setCurrentGame: function(game){
-            return this.set('currentGame',game);
-        },
-        addGame: function(game){
-            if(!game) return;
-            
-            this.set('currentGame',game);
-            //this.get('list').push(game);
-            this.add(game);
+        url: '#/games/',
+        initialize: function (models, options) {
+
+            this.on('reset', function () {
+                this.model = this.get(this.model.id);
+            }.bind(this));
         }
     });
 

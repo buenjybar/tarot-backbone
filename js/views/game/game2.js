@@ -13,15 +13,20 @@ define([
 
     var Game2View = Backbone.View.extend({
         el: $("#container"),
-        gameid : null,
+        $called: null,
+        $bout: null,
+        additionaloptions: null,
+        $points: null,
+        $pointsOther: null,
+        gameid: null,
         players: null,
-        initialize: function(options){
-            if(options && options.gameid) {
+        initialize: function (options) {
+            if (options && options.gameid) {
                 this.gameid = options.gameid;
                 var gameColl = window.app.getGameCollection();
-                if(gameColl === undefined) return;
+                if (gameColl === undefined) return;
                 var game = gameColl.get(this.gameid);
-                if(game === undefined) return;
+                if (game === undefined) return;
                 this.players = game.get('players');
             }
         },
@@ -30,42 +35,52 @@ define([
             var compiledTemplate = _.template(game2Template, data);
             this.$el.empty();
             this.$el.append(compiledTemplate);
-            
-            $("#called").append(Util.getPlayersOption(this.players));
-            $("#bouts").append(Util.getEnumsToHTML(ENUMS.BOUTS));
+
+            this.$called = $("#called");
+            this.$bout = $("#bouts");
+            this.additionaloptions = $("#additionaloptions");
+            this.$points = $("input[name='taker']");
+            this.$pointsOther = $("input[name='other']");
+
+            this.$called.append(Util.getPlayersOption(this.players));
+            this.$bout.append(Util.getEnumsToHTML(ENUMS.BOUTS));
         },
         events: {
             'click #submitgame button:button': 'checkValidForm',
-            'click #additionaloptions' : 'additionalOptions',
-            'change input[name="other"]' : 'computeOtherScore',
+            'click #additionaloptions li a': 'additionalOptions',
+            'change input[name="other"]': 'computeOtherScore',
             'change input[name="taker"]': 'computeTakerScore'
         },
-        checkValidForm : function(){
-          var valid = true;
-            
-            if(valid){
+        checkValidForm: function () {
+            var valid = true;
+
+            if (valid) {
                 //get id and generate play number
-                this.goToNext(this.gameid);   
-            }else{
-                
+                this.goToNext(this.gameid);
+            } else {
+
             }
         },
-        goToNext: function(id, play){
-            Backbone.history.navigate('#/scores/' + id , {trigger: true});
+        goToNext: function (id, play) {
+            Backbone.history.navigate('#/scores/' + id, {trigger: true});
         },
-        additionalOptions : function(){
-            
+        additionalOptions: function (e) {
+            var selected = e.currentTarget;
+            var text = selected.text;
+            //TODO finish the function
+//            var html = '';
+//            if(text.match())
         },
-        computeOtherScore : function(e){
-            this.computeScore("input[name='other']","input[name='taker']");
+        computeOtherScore: function (e) {
+            this.computeScore(this.$pointsOther, this.$points);
         },
-        computeTakerScore : function(e){
-            this.computeScore("input[name='taker']","input[name='other']");
+        computeTakerScore: function (e) {
+            this.computeScore(this.$points, this.$pointsOther);
         },
-        computeScore : function(source, target){
+        computeScore: function (source, target) {
             var value = +$(source).val();
-            if(value > 91) {
-                $(source).val(91); 
+            if (value > 91) {
+                $(source).val(91);
                 $(target).val(0);
                 return;
             }

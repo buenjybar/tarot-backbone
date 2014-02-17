@@ -10,23 +10,23 @@ define([
 ], function ($, _, Backbone, scoresTemplate) {
 
     var Score = Backbone.View.extend({
-        el : $("#container"),
-        initialize: function(options){
-            
+        el: $("#container"),
+        initialize: function (options) {
+
         },
-        render : function(){
+        render: function () {
             var data = {};
             var compiledTemplate = _.template(scoresTemplate, data);
             this.$el.empty();
             this.$el.append(compiledTemplate);
         },
         events: {
-            
+
         },
-        goToNext : function(){
-            
+        goToNext: function () {
+
         }
     });
-    
+
     return Score;
 });
