@@ -13,23 +13,45 @@ define([
 
     var Game2View = Backbone.View.extend({
         el: $("#container"),
+        gameid : null,
+        players: null,
+        initialize: function(options){
+            if(options && options.gameid) {
+                this.gameid = options.gameid;
+                var gameColl = window.app.getGameCollection();
+                if(gameColl === undefined) return;
+                var game = gameColl.get(this.gameid);
+                if(game === undefined) return;
+                this.players = game.get('players');
+            }
+        },
         render: function () {
             var data = {};
             var compiledTemplate = _.template(game2Template, data);
             this.$el.empty();
             this.$el.append(compiledTemplate);
             
-            $("#called").append();
+            $("#called").append(Util.getPlayersOption(this.players));
             $("#bouts").append(Util.getEnumsToHTML(ENUMS.BOUTS));
         },
         events: {
-            'click #game2 button:submit': 'goToScore',
+            'click #submitgame button:button': 'checkValidForm',
             'click #additionaloptions' : 'additionalOptions',
             'change input[name="other"]' : 'computeOtherScore',
             'change input[name="taker"]': 'computeTakerScore'
         },
-        goToScore : function(){
-            Backbone.history.navigate('scores', {trigger: true});
+        checkValidForm : function(){
+          var valid = true;
+            
+            if(valid){
+                //get id and generate play number
+                this.goToNext(this.gameid);   
+            }else{
+                
+            }
+        },
+        goToNext: function(id, play){
+            Backbone.history.navigate('#/scores/' + id , {trigger: true});
         },
         additionalOptions : function(){
             

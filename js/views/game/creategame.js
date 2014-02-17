@@ -57,7 +57,7 @@ define([
             });
             valid = names.length > 2 && names.length < 7 && Util.isOnlyUniqueValues(names);
                         
-            valid = true;//TODO remove <--
+            //valid = true;//TODO remove <--
             if(valid) {
                 names.forEach(function(name){
                     players.push({
@@ -67,19 +67,20 @@ define([
                 });
                 
                 //create a new game
-                var game = new Game({name: 'game1'});
-                game.addPlayers(players);
+                //var game = new Game();
                 
-                //add game to collection
-                Util.getCurrentCollection().addGame(game);
+                //add game to game collection
+                var gameColl = window.app.getGameCollection();
+                var game = gameColl.create({ players: players });
                 
-                this.goToNext();
+                //this.goToNext(game.get('id'));
+                this.goToNext(game.cid);
             } else {
-                Util.displayErrorMessage("<strong>Warning</strong> please, make sure players names are uniques");
+                Util.displayErrorMessage("<strong>Warning</strong> please, make sure player names are uniques");
             }
         },
-        goToNext: function(){
-            Backbone.history.navigate('games', {trigger: true});
+        goToNext: function(id){
+            Backbone.history.navigate('#/games/'+ id , {trigger: true});
         }
     });
 

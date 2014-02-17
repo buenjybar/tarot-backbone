@@ -19,10 +19,14 @@ define([
             this.$el.append(compiledTemplate);
         },
         events: {
-            'click #startgame': 'goToCreateGame'
+            'click #startgame': 'goToNext',
+            'click [data-toggle=offcanvas]' :'toggleClass'
         },
-        goToCreateGame: function (event) {
-            Backbone.history.navigate('#/games', {trigger: true});
+        goToNext: function (event) {
+            Backbone.history.navigate('#/games/newgame', {trigger: true});
+        },
+        toggleClass: function (e) {
+            this.$('.row-offcanvas').toggleClass('active');
         }
     });
 
