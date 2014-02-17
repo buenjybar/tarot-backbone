@@ -24,6 +24,10 @@ define([
         //return Math.random().toString(36).substring(12);
     };
 
+    Util.getNewGameId = function (prefix) {
+        return Math.random().toString(36).substring(12);
+    };
+    
     Util.getRandomAvatarImg = function(){
         
     };
@@ -35,7 +39,7 @@ define([
         var length = array.length;
         
         return (length === _.uniq(array).length);
-    }
+    };
     
     Util.displayErrorMessage = function(msg, force){
         var alert = $('.alert-danger');
@@ -80,5 +84,14 @@ define([
         return html;
     }
 
+    Util.getPlayersOption = function(players){
+        var html = '';
+        if(!players || players.length < 1) return html;
+        for(var i = 0; i< players.length; ++i){
+            html+= '<option>' + players[i].get('name') + '</option>';
+        }
+        return html;
+    };
+    
     return Util;
 });
