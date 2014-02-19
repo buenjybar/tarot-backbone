@@ -7,19 +7,22 @@ define([
     'underscore',
     'backbone',
     'util',
+    'synchronization',
     'router',
     'js/collections/gamecollection',
     'q',
     'backbonedebug',
     'bootstrap'
-], function ($, _, Backbone, Util, Router, GameCollection, Q) {
+], function ($, _, Backbone, Util, Synchronization, Router, GameCollection, Q) {
     var initialize = function () {
+        
         Backbone.debug.on();
-
-        new Router();
-        Backbone.history.start();
         this.gameColl = new GameCollection();
         window.app = this;
+        //new Synchronization();
+        new Router();
+        Backbone.history.start();
+        
 
         //this.currentGameCollection = new GameCollection();
         Util.setCurrentCollection(new GameCollection());

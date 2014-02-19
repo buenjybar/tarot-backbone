@@ -18,8 +18,8 @@ define([
             king: ENUMS.KING.NONE,
             taker: null,
             called: null,
-            points: 0,
-            score: 0
+            others: null,
+            points: 0
         }
     });
     

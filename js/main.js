@@ -16,6 +16,7 @@ require.config({
         //app
         app: 'js/app',
         router: 'js/router',
+        synchronization: 'js/synchronization',
         enums: 'js/enums',
         util: 'js/util'
     },

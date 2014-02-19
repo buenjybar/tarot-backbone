@@ -39,9 +39,13 @@ define([
             this.$contract = $('#contract');
             this.$king = $('#king');
 
-            this.$taker.append(Util.getPlayersOption(this.players));
-            this.$contract.append(Util.getEnumsToHTML(ENUMS.BIDS));
-            this.$king.append(Util.getEnumsToHTML(ENUMS.KINGS));
+            this.$taker.append(Util.getPlayersToHTML(this.players));
+            this.$contract.append(Util.getEnumsToHTML(ENUMS.BIDS, true));
+            this.$king.append(Util.getEnumsToHTML(ENUMS.KINGS, true));
+            
+            if(this.players && this.players.length < 5){
+                this.$king.parent().parent().addClass('hidden');
+            }
         },
         events: {
             'click #game1 button:button': 'checkValidForm'

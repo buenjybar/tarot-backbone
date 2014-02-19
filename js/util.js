@@ -20,8 +20,8 @@ define([
 
     //static method get New ID
     Util.getNewId = function (prefix) {
-        return _.uniqueId(prefix);
-        //return Math.random().toString(36).substring(12);
+        //return _.uniqueId(prefix);
+        return Math.random().toString(36).substring(12);
     };
 
     Util.getNewGameId = function (prefix) {
@@ -54,7 +54,7 @@ define([
         } else {
             alert.html(msg).show().delay(5000).fadeOut();
         }
-    }
+    };
 
     //static method used to load an image from local storage
     Util.loadImage = function (path_to_img, callback) {
@@ -74,19 +74,22 @@ define([
         onload();
     };
 
-    Util.getEnumsToHTML = function (enums) {
+    Util.getEnumsToHTML = function (enums, removeNone) {
+        var hide = removeNone !== undefined ? removeNone : false;
         var html = '';
         for (var prop in enums) {
+            if(hide === true && prop.toLowerCase() === 'none') 
+                continue;
             var el = enums[prop];
             var name = el.name != undefined ? el.name : el;
             html += '<option>' + name + '</option>';
         }
         return html;
-    }
+    };
 
-    Util.getPlayersOption = function (players) {
+    Util.getPlayersToHTML = function (players) {
         var html = '';
-        if (!players || players.length < 1) return html;
+        if (!players || !players.length) return html;
         for (var i = 0; i < players.length; ++i) {
             html += '<option>' + players[i].get('name') + '</option>';
         }
