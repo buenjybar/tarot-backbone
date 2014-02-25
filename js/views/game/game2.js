@@ -21,7 +21,9 @@ define([
         $chelem: null,
         $petit: null,
         $options: null,
+        $gameinfo: null,
         gameid: null,
+        gameContract: null,
         players: null,
         initialize: function (options) {
             if (options && options.gameid) {
@@ -31,6 +33,7 @@ define([
                 if (gameColl === undefined) return;
                 var game = gameColl.get(this.gameid);
                 if (game === undefined) return;
+                //this.gameContract = game.get('contract');//TODO 
                 this.players = game.get('players');
             }
         },
@@ -46,47 +49,53 @@ define([
             this.$points = $("input[name='taker']");
             this.$pointsOther = $("input[name='other']");
             this.$options = $("#options");
+            this.$gameinfo = $("#gameinfo label");
 
             this.$called.append(Util.getPlayersToHTML(this.players));
             this.$bout.append(Util.getEnumsToHTML(ENUMS.BOUTS));
-            
+            this.$additionaloptions.find('ul').append(Util.getOptionsToHTML(ENUMS.OPTIONS));
+
             if(this.players && this.players.length < 5){
                 this.$called.parent().parent().addClass('hidden');
             }
         },
         events: {
             'click #submitgame button:button': 'checkValidForm',
-            'click #additionaloptions li a': 'additionalOptions',
+            'click #additionaloptions li a': 'additionalOptionsDispatcher',
+            'change #bouts' : 'updateGameInfoText',
             'change input[name="other"]': 'computeOtherScore',
             'change input[name="taker"]': 'computeTakerScore'
         },
         checkValidForm: function () {
             var valid = true;
-
+            
+            valid = this.$points.val() !== null && this.$points.val() !== undefined && this.$points.val() !== '';    
+            
             if (valid) {
                 //get id and generate play number
                 this.goToNext(this.gameid);
             } else {
-
+                Util.displayErrorMessage('<strong>Warning</strong> please, enter a valid number of points.');
             }
         },
         goToNext: function (id, play) {
             Backbone.history.navigate('#/scores/' + id, {trigger: true});
         },
-        additionalOptions: function (e) {
+        additionalOptionsDispatcher: function (e) {
             var selected = e.currentTarget;
             var text = selected.text;
 
-            if(text.match(/Petit au bout/)) this.displayPetitOptions();
-            if(text.match(/Chelem/)) this.displayChelemOptions();
-            if(text.match(/Poignee/)) this.displayPoigneeOptions();
-                
+            if(text.match(ENUMS.OPTIONS.PETIT.name)) this.displayPetitOptions();
+            if(text.match(ENUMS.OPTIONS.CHELEM.name)) this.displayChelemOptions();
+            if(text.match(ENUMS.OPTIONS.POIGNEE.name)) this.displayPoigneeOptions();
         },
         computeOtherScore: function (e) {
             this.computeScore(this.$pointsOther, this.$points);
+            this.updateGameInfoText();
         },
         computeTakerScore: function (e) {
             this.computeScore(this.$points, this.$pointsOther);
+            this.updateGameInfoText();
         },
         computeScore: function (source, target) {
             var value = +$(source).val();
@@ -97,9 +106,22 @@ define([
             }
             $(target).val(91 - value);
         },
+        updateGameInfoText: function(){          
+            var target = +this.$bout.val();
+            var score = +this.$points.val();
+            var diff = score - target;
+            if(diff >= 0){
+                this.$gameinfo.html('<em>contract succeed by <strong>' + diff + (diff === 0 ? ' pt' : ' pts') + '</strong></em>');
+                this.$gameinfo.removeClass();
+                this.$gameinfo.addClass('text-success');
+            }else {
+                this.$gameinfo.html('<em>contract fail by <strong>' + diff + ' pts</strong></em>');
+                this.$gameinfo.removeClass();
+                this.$gameinfo.addClass('text-danger');
+            } 
+        },
         displayPetitOptions : function(){
-            if(!this.$additionaloptions)
-                return;
+            if(!this.$additionaloptions) return;
             var html = '<div class="form-group">' +
                             '<div class="col-xs-6">'+
                                 '<label class="control-label">Petit au bout</label>' +
@@ -112,7 +134,7 @@ define([
             this.$options.append(html);
             this.$petit = $('#petit');
             
-            $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Petit au bout"}).addClass('hidden')
+            $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Petit au bout"}).addClass('hidden');
         },
         displayChelemOptions : function(){
             if(!this.$additionaloptions)
@@ -129,7 +151,7 @@ define([
             this.$options.append(html);
             this.$chelem = $('#chelem');
             
-            $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Chelem"}).addClass('hidden')
+            $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Chelem"}).addClass('hidden');
         },
         displayPoigneeOptions: function(){
             if(!this.$additionaloptions)
@@ -155,7 +177,7 @@ define([
             this.$options.append(html);
             this.$poignee = $('#poignee');
             
-           $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Poignee"}).addClass('hidden')
+           $("#additionaloptions ul li a").filter(function(){ return $(this).text() === "Poignee"}).addClass('hidden');
         }
         
     });

@@ -7,12 +7,16 @@ define([
     'backbone',
     'util',
     'js/models/player',
-], function (_, Backbone, Util, Player) {
+    'js/models/trick'
+], function (_, Backbone, Util, Player, Trick) {
 
     var Game = Backbone.Model.extend({
+        url: 'http://localhost:80/#/games',
+        idAttribute: 'id',
+        model: Trick,
         defaults:{
             id: Util.getNewGameId(),
-            name : 'game_' + Util.getNewId(),
+            name : 'game_' + this.id,
             date : new Date(),
             ticks: [],
             players: [],
@@ -21,7 +25,8 @@ define([
         initialize : function(options){
             if(options && options.name) this.set('name', options.name);        
             if(options && options.players) this.createPlayers(options.players);   
-
+            
+            this.save();
         },
         getPlayers: function(){
           return this.get('players');  

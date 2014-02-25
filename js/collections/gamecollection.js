@@ -11,7 +11,7 @@ define([
     var GameCollection = Backbone.Collection.extend({
         model: Game,
         currentGame: null,
-        url: '#/games/',
+        url: 'ws://localhost:8080/#/games/',
         initialize: function (models, options) {
 
             this.on('reset', function () {

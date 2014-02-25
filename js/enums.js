@@ -51,6 +51,13 @@ define(function () {
         'CHELEM' : CHELEM 
     };
      
+    //represents options menu context enumerator
+    var OPTIONS = {
+        'PETIT' : {name: "Petit au bout"},   
+        'CHELEM' : {name: "Chelem"},   
+        'POIGNEE' : {name: "Poignee"}   
+    }
+    
     //represents the 4 kings and their images
     var KINGS = {
         'NONE': {name: 'None', img: ''},
@@ -63,6 +70,7 @@ define(function () {
     return {
         BIDS: BIDS,
         BONUS: BONUS,
+        OPTIONS : OPTIONS,
         BOUTS: BOUTS,
         POIGNEES: POIGNEES,
         KINGS: KINGS

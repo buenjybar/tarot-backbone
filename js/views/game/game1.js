@@ -59,8 +59,7 @@ define([
 
             var gameBypassed = contract.text().toLowerCase() === 'none';
             if (gameBypassed) {
-                //implement game Bypassed
-                //confirm box?
+                Backbone.history.navigate('#/games/' + i, {trigger: true});    
             }
 
             if (valid) {

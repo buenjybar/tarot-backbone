@@ -82,7 +82,8 @@ define([
                 continue;
             var el = enums[prop];
             var name = el.name != undefined ? el.name : el;
-            html += '<option>' + name + '</option>';
+            var value = el.points != undefined ? el.points : null;
+            html+= '<option value="' + value + '">' + name + '</option>';
         }
         return html;
     };
@@ -93,6 +94,18 @@ define([
         for (var i = 0; i < players.length; ++i) {
             html += '<option>' + players[i].get('name') + '</option>';
         }
+        return html;
+    };
+    
+    Util.getOptionsToHTML = function (options) {
+        var html = '<li role="presentation" class="dropdown-header">click to add options</li>';
+        if(!options) return html;
+        
+        for(var prop in options){
+            var name = options[prop] !== undefined ? options[prop].name : options[prop];
+            html+= '<li><a role="menu-item">' + name + '</a></li>'
+        }
+        
         return html;
     };
 
