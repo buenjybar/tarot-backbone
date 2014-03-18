@@ -23,7 +23,7 @@ define([
             'click [data-toggle=offcanvas]': 'toggleClass'
         },
         goToNext: function (event) {
-            Backbone.history.navigate('#/games/newgame', {trigger: true});
+            Backbone.history.navigate('newgame', {trigger: true});
         },
         toggleClass: function (e) {
             this.$('.row-offcanvas').toggleClass('active');

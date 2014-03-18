@@ -10,12 +10,13 @@ define([
     'util',
     'js/models/game',
     'js/collections/gamecollection'
-], function ($, _, Backbone, createGameTemplate, Util, Game, Collection) {
+], function ($, _, Backbone, createGameTemplate, Util, Game) {
 
     var HomeView = Backbone.View.extend({
         el: $("#container"),
         $players: null,
-        currentNumber : 0,
+        currentNumber: 0,
+        randomPlayers: ['ben', 'bob', 'marie', 'pierre', 'charles', 'nico'],
         render: function () {
             var data = {};
             var compiledTemplate = _.template(createGameTemplate, data);
@@ -33,22 +34,22 @@ define([
             var selected = $(e.currentTarget);
             var number = +selected.text().match(/\d+/g)[0];//extract number of players
             var diff = number - this.currentNumber;
-            if(diff > 0) {
+            if (diff > 0) {
                 var html = '';
                 for (var i = 1; i <= diff; ++i) {
                     html += '<div class="col-xs-12">' +
                         '<span>Player ' + (i + this.currentNumber) + ': </span>' +
-                        '<input type="text" class="form-control" placeholder="name">' +
+                        '<input type="text" class="form-control" placeholder="name" value="' + this.randomPlayers[this.currentNumber + i - 1] + '">' +
                         '</div>';
                 }
                 this.$players.last().append(html);
             } else {
-                for(var i = 0 ; i < -diff; ++i){
+                for (var i = 0; i < -diff; ++i) {
                     this.$players.children().last().remove();
                 }
             }
             this.currentNumber = number;
-            
+
             $('#playagame a').removeClass('hidden');
         },
         checkValidForm: function () {
@@ -59,34 +60,27 @@ define([
             var elements = this.$players.find('input');
             elements.map(function (i) {
                 names.push(elements[i].value);
-
             });
             valid = names.length > 2 && names.length < 7 && Util.isOnlyUniqueValues(names);
 
-            //valid = true;//TODO remove <--
             if (valid) {
                 names.forEach(function (name) {
                     players.push({
-                        name: name,
-                        img: Util.getRandomAvatarImg()
+                        name: name//,
+                        //img: Util.getRandomAvatarImg()
                     });
                 });
-
-                //create a new game
-                //var game = new Game();
-
                 //add game to game collection
                 var gameColl = window.app.getGameCollection();
-                var game = gameColl.create({ players: players });
+                var game = gameColl.create(new Game({ players: players }));
 
-                //this.goToNext(game.get('id'));
-                this.goToNext(game.cid);
+                this.goToNext(game);
             } else {
                 Util.displayErrorMessage("<strong>Warning</strong> please, make sure player names are uniques");
             }
         },
-        goToNext: function (id) {
-            Backbone.history.navigate('#/games/' + id, {trigger: true});
+        goToNext: function (game) {
+            Backbone.history.navigate('games/' + game.id, {trigger: true});
         }
     });
 

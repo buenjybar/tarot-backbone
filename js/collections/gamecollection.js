@@ -11,12 +11,21 @@ define([
     var GameCollection = Backbone.Collection.extend({
         model: Game,
         currentGame: null,
-        url: 'ws://localhost:8080/#/games/',
+        url: function () {
+            return 'http://' + window.document.domain + ':3000/games/';
+        },
         initialize: function (models, options) {
+
+            this.bind('add', function(game){
+               this.currentGame = game;
+            });
 
             this.on('reset', function () {
                 this.model = this.get(this.model.id);
             }.bind(this));
+        },
+        getCurrentGame : function(){
+            return this.currentGame;
         }
     });
 

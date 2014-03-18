@@ -10,12 +10,14 @@ define([
 
     var Player = Backbone.Model.extend({
         defaults: {
-           name: '',
-           img: null
+            id: _.uniqueId('p'),
+            name: 'player_name'
         },
         initialize : function(options){
-            if(options && options.name) this.set('name', options.name);    
-            if(options && options.img) this.set('img', options.img);    
+            if(options && options.name) this.set('name', options.name);
+        },
+        get: function(prop){
+            return this.get(prop);
         }
     });
    

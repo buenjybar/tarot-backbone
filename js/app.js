@@ -21,13 +21,8 @@ define([
         window.app = this;
         //new Synchronization();
         new Router();
-        Backbone.history.start();
-        
-
-        //this.currentGameCollection = new GameCollection();
-        Util.setCurrentCollection(new GameCollection());
-
-        //var promise = loadAvatars().then()
+//        Backbone.history.start({pushState: true});
+        Backbone.history.start({pushState: false});
 
         //patch close template
         //this avoid ghost view

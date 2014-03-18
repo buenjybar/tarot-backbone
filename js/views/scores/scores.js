@@ -7,21 +7,15 @@ define([
     'underscore',
     'backbone',
     'text!templates/scores/scores.html',
-], function ($, _, Backbone, scoresTemplate) {
+    'js/models/game'
+], function ($, _, Backbone, scoresTemplate, Game) {
 
     var Score = Backbone.View.extend({
         el: $("#container"),
         game: null,
         initialize: function (options) {
-            if(options && options.gameid){
-                if (window.app === undefined) return;
-                var gameColl = window.app.getGameCollection();
-                if(gameColl === undefined) return;
-                //this.games = gameColl.models;
-                this.game = gameColl.get(options.gameid);
-                if(this.game === undefined) return;
-                //this.tricks = this.game.
-            }            
+            this.game = new Game({id : options.gameid});
+
         },
         render: function () {
             var data = {};
@@ -29,9 +23,7 @@ define([
             this.$el.empty();
             this.$el.append(compiledTemplate);
             
-            
-            var attr = this.game.attributes;
-            
+            var players = this.game.getPlayers();
         },
         events: {
 

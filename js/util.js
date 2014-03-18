@@ -5,17 +5,8 @@
 define([
     'underscore'
 ], function (_) {
-    var currentCollection = null;
     //Static class
     function Util() {
-    };
-
-    Util.setCurrentCollection = function (col) {
-        currentCollection = col;
-    };
-
-    Util.getCurrentCollection = function (col) {
-        return currentCollection;
     };
 
     //static method get New ID
@@ -92,7 +83,7 @@ define([
         var html = '';
         if (!players || !players.length) return html;
         for (var i = 0; i < players.length; ++i) {
-            html += '<option>' + players[i].get('name') + '</option>';
+            html += '<option>' + players[i]['name'] + '</option>';
         }
         return html;
     };
@@ -107,6 +98,19 @@ define([
         }
         
         return html;
+    };
+
+    Util.merge = function(src, arg1){
+        if(!src || ! arg1) return;
+
+        for(var attr in arg1){
+            if(arg1[attr] === undefined ) continue;
+            if(arg1[attr] instanceof Array) {
+                src[attr] = arg1[attr].slice(0);
+                continue;
+            }
+            src[attr] = arg1[attr];
+        }
     };
 
     return Util;
