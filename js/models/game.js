@@ -18,7 +18,7 @@ define([
             return {
                 id: Util.getNewGameId(),
                 name: 'gameTests',
-                date: new Date(),
+                date: new Date().toDateString(),
                 tricks: [],
                 players: [],
                 playerNumber: 0,
@@ -26,40 +26,49 @@ define([
             }
         },
         initialize: function (options) {
-            if (!options) return;
-            if (options.name) this.set('name', options.name);
-            if (options.players) this.createPlayers(options.players);
-            if (options.date) this.set('date', options.date);
-
             this.bind("error", function (model, error) {
                 // We have received an error, log it, alert it or forget it :)
                 debugger;
                 console.log(error);
             });
-
+            this.bind('change', function(model, changes){
+                console.log(model);
+            });
+            this.set(options);
         },
         getPlayers: function () {
             return this.get('players');
         },
-        createPlayers: function (array) {
+        addPlayers: function (array) {
             if (!array) return;
 
             var players = [];
-            this.set('playerNumber', array.length);
-            array.forEach(function (element) {
+            _.each(array, function (element) {
                 players.push(new Player({ name: element.name}));
-            }.bind(this));
+            }, this);
+
             this.set('players', players);
+            this.set('playerNumber', array.length);
         },
         createNewTrick: function (options) {
-            this.set('trickCounter', this.get('trickCounter') + 1);
             var trick = new Trick({ urlRoot: this.url()});
             trick.set(options);
+
             this.get('tricks').push(trick);
+            this.set('trickCounter', this.get('trickCounter') + 1);
             return trick;
         },
         getTrick: function (play) {
             return new Trick({id: play.id, urlRoot: this.url()});
+        },
+        getPlayer : function(name){
+            var players = this.get('players');
+            for(var i = 0; i< players.length; ++i){
+                if(players[i] && players[i]['name'] == name){
+                    return players[i];
+                }
+            }
+            return null;
         }
     });
 

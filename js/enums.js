@@ -16,10 +16,10 @@ define(function () {
     
     //indexes represents the number of bouts the taker wins
     var BOUTS = {
-        'NONE': { name: 0, points: 56 },
-        'ONE': { name: 1, points: 51 },
-        'TWO': { name: 2, points: 41 },
-        'THREE': { name: 3, points: 36 }
+        'NONE': { name: '0', points: 56 },
+        'ONE': { name: '1', points: 51 },
+        'TWO': { name: '2', points: 41 },
+        'THREE': { name: '3', points: 36 }
     };
 
     //represents the extra points that can be win

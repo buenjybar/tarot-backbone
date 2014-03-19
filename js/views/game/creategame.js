@@ -35,16 +35,18 @@ define([
             var number = +selected.text().match(/\d+/g)[0];//extract number of players
             var diff = number - this.currentNumber;
             if (diff > 0) {
-                var html = '';
+                var html = [];
                 for (var i = 1; i <= diff; ++i) {
-                    html += '<div class="col-xs-12">' +
+                    html.push(
+                        '<div class="col-xs-12">' +
                         '<span>Player ' + (i + this.currentNumber) + ': </span>' +
                         '<input type="text" class="form-control" placeholder="name" value="' + this.randomPlayers[this.currentNumber + i - 1] + '">' +
-                        '</div>';
+                        '</div>'
+                    );
                 }
-                this.$players.last().append(html);
+                this.$players.last().append(html.join(''));
             } else {
-                for (var i = 0; i < -diff; ++i) {
+                for (i = 0; i < -diff; ++i) {
                     this.$players.children().last().remove();
                 }
             }
@@ -66,21 +68,25 @@ define([
             if (valid) {
                 names.forEach(function (name) {
                     players.push({
-                        name: name//,
-                        //img: Util.getRandomAvatarImg()
+                        name: name
                     });
                 });
                 //add game to game collection
                 var gameColl = window.app.getGameCollection();
-                var game = gameColl.create(new Game({ players: players }));
 
-                this.goToNext(game);
+                var game = gameColl.create(new Game());
+                game.addPlayers(players);
+
+                var play = game.createNewTrick();
+                play.save();
+
+                this.goToNext(game.id, play.id);
             } else {
                 Util.displayErrorMessage("<strong>Warning</strong> please, make sure player names are uniques");
             }
         },
-        goToNext: function (game) {
-            Backbone.history.navigate('games/' + game.id, {trigger: true});
+        goToNext: function (gameid, playid) {
+            Backbone.history.navigate('games/' + gameid + '/plays/' + playid, {trigger: true});
         }
     });
 

@@ -21,8 +21,9 @@ define([
             'home': 'home',
             'newgame': 'creategame',
             'games/' : 'creategame',
-            'games/:id(/)': 'games',
-            'games/:id/plays/:play': 'game2',
+            'games/:id(/)': 'game1',
+            'games/:id/plays/:play(/)': 'game1',
+            'games/:id/plays/:play/suite(/)': 'game2',
             'scores/(:id(plays/:play))': 'scores',
             'save': 'save',
             'load': 'load',
@@ -37,26 +38,22 @@ define([
         creategame: function () {
             new CreateGameView().render();
         },
-        games: function (id, play) {
-            console.log(">>DEBUG: route: %s, %s", id, play);
-            if (id == null || id.match(/newgame/)) {
-                //go to creatgame and ask for player names
-//                this.creategame();
-            } else if (play == null) {
-                //go to game1 view then game2 view
-                this.game1(id);
-            } else if (play.match(/suite/)) {
-                //go to game2
-                this.game2(id);
-            } else {
-                //go to gamedetail view
-            }
-        },
-        game1: function (id) {
-            new Game1View({ gameid: id });
+//        games: function (id, play) {
+//            if (play == null) {
+//                //go to game1 view then game2 view
+//                this.game1(id, play);
+//            } else if (play.match(/suite/)) {
+//                //go to game2
+//                this.game2(id, play);
+//            } else {
+//                //go to gamedetail view
+//            }
+//        },
+        game1: function (id, play) {
+            new Game1View({ gameid: id, playid: play});
         },
         game2: function (id, play) {
-            new Game2View({ gameid: id , playid: play });
+            new Game2View({ gameid: id, playid: play });
         },
         scores: function (id, play) {
             new ScoresView({ gameid: id }).render();

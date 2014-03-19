@@ -4,30 +4,66 @@ var app = express();
 var testData = {
     "players": [
         {
-            "name": "ben",
-            "id": "p1"
+            "name": "ben"
         },
         {
-            "name": "bob",
-            "id": "p2"
+            "name": "bob"
         },
         {
-            "name": "marie",
-            "id": "p3"
+            "name": "marie"
         },
         {
-            "name": "pierre",
-            "id": "p4"
+            "name": "pierre"
         },
         {
-            "name": "charles",
-            "id": "p5"
+            "name": "charles"
         }
     ],
     "id": "test",
     "name": "gameTests",
     "date": "2014-03-18T03:18:12.996Z",
     "tricks": [
+        {
+            "urlRoot": "http://localhost:3000/games/41v2t9/",
+            "id": "1",
+            "bid": {
+                "name": "Garde",
+                "points": "2"
+            },
+            "bonusPetit": {
+                "name": "Petit au Bout win",
+                "points": "10"
+            },
+            "bonusChelem": {
+                "name": "Chelem annonced and loose",
+                "points": "-200"
+            },
+            "bout": {
+                "name": "1",
+                "points": "51"
+            },
+            "poignee": {
+                "player": {
+                    "name": "charles"
+                },
+                "value": {
+                    "name": "Double ( 13 atouts)",
+                    "points": "30"
+                }
+            },
+            "king": {
+                "name": "Hearts",
+                "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsIAAA7CARUoSoAAAAHqSURBVEhLY0AGa/X0xN5wci57y8HxFYjP3uXjc4VKoYBrQkJuz3l4Lj7n5v7/gJ9/+2JdXXWoFAK8Y2Pz+cXE9PA/A8N/GP7DyPj1IytrB1QJGID4v4HiyOq+MzO/esLFlQRVwsDwnJPTHKj5L7IiOGZk/P+enb0BpA5Eg/hY1TEx/X/Iw+MPNvAbM/NxrIqgGOiiHzdFRLxBNDZ5GP7CwnKD4YqwsBNO1yHh92xsr7GJI2OgOT8YXnJwTMQmSQ7+y8Dwm+EVB8ckbJLk4H8gA6+KiNgBnfoHmwJSMdjLIPCVmfkQNgWk4g+srPfBBj7l4bHFmRyIxUD9V4SEcsEGgsAnVtZ+rAqJxC+4uI4AWUxQ4xgYQkNDmX8wMx/AppgQ/sDG9nKesrIs1CgEuMHDIwLMfrewacKFv7Gw/DgoJWUFNQITPOblVQUa+hKbZnT8i5n5/xkhoUCoVtzgGSenKTCbfcNmCBwD8+41QcEUqBbC4B0Xl88/XDEPFL/Hx1cDVUo8AObfQmwGPuPmngdVQjoABvpqZMOAMXqBIS2NFSpNOrgmJSUMjKQ3IMN+MjP/PiIlZQCVIh/AvP6Im3smVIgycIWPT+gLG9urw9LS+lAhysENfv7mQgsLTiiXYsAY7e5uC2XjAQwMAM1qHcLKhxmPAAAAAElFTkSuQmCC"
+            },
+            "taker": {
+                "name": "bob"
+            },
+            "called": {
+                "name": "pierre"
+            },
+            "others": null,
+            "points": "56"
+        }
     ],
     "playerNumber": 5,
     "currentTrick": null,
@@ -101,7 +137,6 @@ app.put('/games/:id/', function (request, response) {
             response.send(500);
         }
         addGameToCollection(request.body);
-        response.send(200);
     }
 });
 
@@ -132,7 +167,6 @@ app.put('/games/:id/plays/:play/', function (request, response) {
             response.send(500);
         }
         addPlayToGame(game, request.body);
-        response.send(200);
     }
 });
 

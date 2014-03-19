@@ -17,10 +17,12 @@ define([
         initialize: function (models, options) {
 
             this.bind('add', function(game){
+                console.log('ADD');
                this.currentGame = game;
             });
 
             this.on('reset', function () {
+                console.log('RESET');
                 this.model = this.get(this.model.id);
             }.bind(this));
         },

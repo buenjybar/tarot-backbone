@@ -16,7 +16,7 @@ define([
 ], function ($, _, Backbone, Util, Synchronization, Router, GameCollection, Q) {
     var initialize = function () {
         
-        Backbone.debug.on();
+//        Backbone.debug.on();
         this.gameColl = new GameCollection();
         window.app = this;
         //new Synchronization();

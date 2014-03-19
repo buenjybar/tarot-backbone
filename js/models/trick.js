@@ -24,16 +24,17 @@ define([
                 king: ENUMS.KINGS.NONE,
                 taker: null,
                 called: null,
+                dead: null,
                 others: null,
                 points: 0
             }
         },
         initialize : function(options){
             this.urlRoot = options.urlRoot;
-            this.save();
+//            this.save();
         },
-        update: function(){
-            this.save();
+        update: function(options){
+            this.save(options);
         }
     });
 

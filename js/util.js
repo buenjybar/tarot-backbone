@@ -67,25 +67,29 @@ define([
 
     Util.getEnumsToHTML = function (enums, removeNone) {
         var hide = removeNone !== undefined ? removeNone : false;
-        var html = '';
+
+        var html = [];
         for (var prop in enums) {
-            if(hide === true && prop.toLowerCase() === 'none') 
+            if(hide == true && prop.toLowerCase() === 'none')
                 continue;
             var el = enums[prop];
             var name = el.name != undefined ? el.name : el;
-            var value = el.points != undefined ? el.points : null;
-            html+= '<option value="' + value + '">' + name + '</option>';
+//            var value = el.points != undefined ? el.points : null;
+            html.push('<option>' + name + '</option>');
         }
-        return html;
+
+        return html.join('');
     };
 
     Util.getPlayersToHTML = function (players) {
-        var html = '';
-        if (!players || !players.length) return html;
+        if (!players || !players.length) return '';
+
+        var html = [];
         for (var i = 0; i < players.length; ++i) {
-            html += '<option>' + players[i]['name'] + '</option>';
+            html.push('<option>' + players[i]['name'] + '</option>');
         }
-        return html;
+
+        return html.join('');
     };
     
     Util.getOptionsToHTML = function (options) {
@@ -98,6 +102,21 @@ define([
         }
         
         return html;
+    };
+
+    Util.parseEnums = function(collection, name){
+        if(collection == null || name == null) return null;
+
+        var none = null;
+        for(var prop in collection){
+            if(!collection[prop] == null ) continue;
+            if(!collection[prop]['name'] == null) continue;
+
+            var value = collection[prop]['name'].toLowerCase();
+            if ( value == 'none') none = collection[prop];
+            if (value == name.toLowerCase())  return collection[prop];
+        }
+        return none;
     };
 
     Util.merge = function(src, arg1){
