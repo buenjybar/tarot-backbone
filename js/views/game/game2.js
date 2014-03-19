@@ -14,7 +14,7 @@ define([
 ], function ($, _, Backbone, Game, Trick, game2Template, ENUMS, Util) {
 
     var Game2View = Backbone.View.extend({
-        el: $("#container"),
+        el: "#container",
         model: Game,
         gameid: null,
         playid: null,
@@ -26,7 +26,7 @@ define([
             this.game = new Game({id: options.gameid});
             this.game.fetch({
                 success: function (model) {
-                    this.players = this.game.getPlayers();
+                    this.players = this.game.get('players');
                     this.render();
                 }.bind(this),
                 error: function (model, response, option) {

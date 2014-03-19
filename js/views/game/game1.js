@@ -24,7 +24,7 @@ define([
             this.game = new Game({id: options.gameid});
             this.game.fetch({
                 success: function (model, response, options) {
-                    this.players = this.game.getPlayers();
+                    this.players = this.game.get('players');
                     this.render();
                 }.bind(this),
                 error: function (model, response, options) {
