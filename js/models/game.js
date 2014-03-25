@@ -13,7 +13,6 @@ define([
         url: function () {
             return 'http://' + window.document.domain + ':3000/games/' + this.id + '/';
         },
-        model: Trick,
         defaults: function () {
             return {
                 id: Util.getNewGameId(),
@@ -39,6 +38,15 @@ define([
         getPlayers: function () {
             return this.get('players');
         },
+        getPlayer : function(name){
+            var players = this.get('players');
+            for(var i = 0; i< players.length; ++i){
+                if(players[i] && players[i]['name'] == name){
+                    return players[i];
+                }
+            }
+            return null;
+        },
         addPlayers: function (array) {
             if (!array) return;
 
@@ -49,26 +57,20 @@ define([
 
             this.set('players', players);
             this.set('playerNumber', array.length);
+//            this.save();
         },
         createNewTrick: function (options) {
             var trick = new Trick({ urlRoot: this.url()});
             trick.set(options);
 
-            this.get('tricks').push(trick);
-            this.set('trickCounter', this.get('trickCounter') + 1);
+            this.add(trick);
+//            this.get('tricks').push(trick);
+//            this.set('trickCounter', this.get('trickCounter') + 1);
+//            this.save();
             return trick;
         },
         getTrick: function (play) {
             return new Trick({id: play.id, urlRoot: this.url()});
-        },
-        getPlayer : function(name){
-            var players = this.get('players');
-            for(var i = 0; i< players.length; ++i){
-                if(players[i] && players[i]['name'] == name){
-                    return players[i];
-                }
-            }
-            return null;
         }
     });
 

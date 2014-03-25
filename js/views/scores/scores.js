@@ -7,10 +7,11 @@ define([
     'underscore',
     'backbone',
     'js/models/game',
+    'js/models/trick',
     'text!templates/scores/scores.html',
     'enums',
     'util'
-], function ($, _, Backbone, Game, scoresTemplate, ENUMS, Util) {
+], function ($, _, Backbone, Game, Trick, scoresTemplate, ENUMS, Util) {
 
     var Score = Backbone.View.extend({
         el: $("#container"),
@@ -56,7 +57,8 @@ define([
 
             this.$(this.head).append(html.join(''));
 
-            _.each(this.tricks, function(trick){
+            _.each(this.tricks, function(tr){
+                var trick = new Trick(tr);
                 html = ['<tr>'];
                 html.push(this.generateTableHeader(trick.id));
                 var scores = this.computeScore(trick);
@@ -75,12 +77,8 @@ define([
         generateTableBody : function(score){
             return '<th>'+score+'</th>';
         },
-        computeScore : function(options){
-            var scores = {};
-            _.each(this.players, function(player){
-                scores[player.name] = Math.floor(Math.random()*91);
-            }, this);
-            return scores;
+        computeScore : function(trick){
+            return trick.computePoints(this.players);
         },
         events: {
 

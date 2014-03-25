@@ -74,7 +74,9 @@ define([
                 //add game to game collection
                 var gameColl = window.app.getGameCollection();
 
-                var game = gameColl.create(new Game());
+                var game = new Game();
+                gameColl.add(game);
+//                var game = gameColl.create(new Game());
                 game.addPlayers(players);
 
                 var play = game.createNewTrick();

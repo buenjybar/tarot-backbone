@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
     <title>French Tarot Online Calculator</title>
 
+    <link href="css/styles.css" rel="stylesheet">
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -15,6 +16,7 @@
     <![endif]-->
 </head>
 <body>
+<!--header-->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -26,7 +28,6 @@
             </button>
                 <a class="navbar-brand" href="/#home">French tarot</a>
         </div>
-
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="dropdown-toggle">
@@ -35,21 +36,22 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/games/newgame">New Game</a></li>
-                        <li class="disabled"><a href="/saveGame">Save</a></li>
-                        <li class="disabled"><a href="/loadGame">Load</a></li>
+                        <li><a href="/#newgame/">New Game</a></li>
+                        <li class="disabled"><a href="/">Save</a></li>
+                        <li class="disabled"><a href="/">Load</a></li>
                         <li><a href="/help" data-toggle="tab">Help</a></li>
                     </ul>
                 </li>
-                <li><a href="/scores/">Scores</a></li>
-                <li><a href="/contacts">Contacts</a></li>
+                <li><a href="/#scores/">Scores</a></li>
+                <li><a href="/#contacts">Contacts</a></li>
             </ul>
         </div>
     </div>
 </nav>
-
+<!--container-->
 <div class="container" id="container"></div>
-
+<!--require-->
 <script data-main="js/main.js" src="js/libs/requirejs/require.js"></script>
+<!--footer-->
 </body>
 </html>

@@ -10,11 +10,11 @@ define([
 
     var Player = Backbone.Model.extend({
         defaults: {
-            id: _.uniqueId('p'),
+            id: _.uniqueId('player_'),
             name: 'player_name'
         },
         initialize : function(options){
-            if(options && options.name) this.set('name', options.name);
+            this.set(options);
         },
         get: function(prop){
             return this.get(prop);

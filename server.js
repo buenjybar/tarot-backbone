@@ -131,10 +131,12 @@ app.get('/games/:id', function (request, response) {
 });
 app.put('/games/:id/', function (request, response) {
     if (!request.params || !request.params.id) {
+        console.log("debug1");
         response.send(500);
     } else {
-        if (getGameById(request.params.id) != null) {
-            response.send(500);
+        var game = getGameById(request.params.id);
+        if (game != null) {
+            console.log("game already exist");
         }
         addGameToCollection(request.body);
     }
@@ -160,11 +162,14 @@ app.get('/games/:id/plays/:play/', function (request, response) {
 });
 app.put('/games/:id/plays/:play/', function (request, response) {
     if (!request.params || !request.params.id) {
+        console.log("debug3");
         response.send(500);
     } else {
         var game = getGameById(request.params.id);
         if (game == null) {
+            console.log("debug4");
             response.send(500);
+            return;
         }
         addPlayToGame(game, request.body);
     }
